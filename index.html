@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navasana - Cyber Insurance the Way It Should Be</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'deep-cove': '#142140',
+            'fika': '#69D3CC',
+            'bright-green': '#83FCC3',
+            'sleepish': '#3410F5',
+            'pralines': '#958261',
+            'smoky-cream': '#DED4CC',
+            'nav-dark': '#0d1628',
+            'nav-darker': '#080f1c',
+          },
+          fontFamily: {
+            'display': ['Space Grotesk', 'sans-serif'],
+            'body': ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #080f1c;
+      --bg-card: #0d1628;
+      --fg: #f8fafc;
+      --fg-muted: #94a3b8;
+      --accent: #69D3CC;
+      --accent-bright: #83FCC3;
+      --accent-blue: #3410F5;
+      --border: rgba(105, 211, 204, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+
+    @keyframes data-flow {
+      0% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scale-in {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animate-fade-up {
+      animation: fade-up 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    .animate-scale-in {
+      animation: scale-in 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+
+    /* Dropdown styles */
+    .nav-dropdown {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.25s ease;
+    }
+
+    .nav-item:hover .nav-dropdown,
+    .nav-item:focus-within .nav-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Card hover effects */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(105, 211, 204, 0.1);
+    }
+
+    /* Expandable cards */
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+    }
+
+    .expandable-card.expanded .expandable-content {
+      max-height: 500px;
+      padding-top: 1rem;
+    }
+
+    .expandable-card .expand-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .expandable-card.expanded .expand-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Grid pattern background */
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(105, 211, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(105, 211, 204, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Noise texture overlay */
+    .noise-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    /* Focus styles */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Pillar connector line */
+    .pillar-connector {
+      position: relative;
+    }
+
+    .pillar-connector::after {
+      content: '';
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      width: 2rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .pillar-connector:last-child::after {
+      display: none;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Hero data visualization */
+    .data-node {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .data-node:nth-child(2) { animation-delay: -1s; }
+    .data-node:nth-child(3) { animation-delay: -2s; }
+    .data-node:nth-child(4) { animation-delay: -3s; }
+    .data-node:nth-child(5) { animation-delay: -4s; }
+
+    .data-line {
+      stroke-dasharray: 1000;
+      animation: data-flow 3s linear infinite;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Button styles */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .btn-primary:hover::before {
+      transform: translateX(100%);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 10px 30px rgba(105, 211, 204, 0.3);
+    }
+
+    /* Pillar cards */
+    .pillar-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .pillar-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Integration category cards */
+    .integration-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .integration-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(105, 211, 204, 0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .integration-card:hover::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-nav-darker/90 backdrop-blur-xl border-b border-white/5">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group" aria-label="Navasana Home">
+          <svg class="w-10 h-10 text-fika transition-transform duration-300 group-hover:scale-110" viewBox="0 0 40 40" fill="none">
+            <path d="M20 4L36 12V28L20 36L4 28V12L20 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M20 12L28 16V24L20 28L12 24V16L20 12Z" fill="currentColor"/>
+          </svg>
+          <span class="font-display text-2xl font-bold text-white">Navasana</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden lg:flex items-center gap-1">
+          <!-- Platform Dropdown -->
+          <div class="nav-item relative">
+            <button class="flex items-center gap-1 px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors" aria-expanded="false" aria-haspopup="true">
+              Platform
+              <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown absolute top-full left-0 pt-2 w-64">
+              <div class="bg-nav-dark border border-white/10 rounded-xl p-2 shadow-2xl">
+                <a href="#cyber-insurance" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+                  <div class="w-10 h-10 rounded-lg bg-fika/10 flex items-center justify-center text-fika group-hover:bg-fika/20 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-white font-medium">Cyber Insurance</div>
+                    <div class="text-xs text-slate-400">Comprehensive coverage</div>
+                  </div>
+                </a>
+                <a href="#brokers" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+                  <div class="w-10 h-10 rounded-lg bg-bright-green/10 flex items-center justify-center text-bright-green group-hover:bg-bright-green/20 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-white font-medium">Brokers</div>
+                    <div class="text-xs text-slate-400">Partner portal</div>
+                  </div>
+                </a>
+                <a href="#underwriters" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+                  <div class="w-10 h-10 rounded-lg bg-sleepish/20 flex items-center justify-center text-blue-400 group-hover:bg-sleepish/30 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-white font-medium">Underwriters</div>
+                    <div class="text-xs text-slate-400">Risk analysis tools</div>
+                  </div>
+                </a>
+                <a href="#policyholder" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+                  <div class="w-10 h-10 rounded-lg bg-pralines/20 flex items-center justify-center text-pralines group-hover:bg-pralines/30 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-white font-medium">Policyholder</div>
+                    <div class="text-xs text-slate-400">Dashboard & tools</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Risk Links -->
+          <a href="#cyber-risk" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">Cyber Risk</a>
+          <a href="#ai-risk" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">AI Risk</a>
+
+          <!-- Company Dropdown -->
+          <div class="nav-item relative">
+            <button class="flex items-center gap-1 px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors" aria-expanded="false" aria-haspopup="true">
+              Company
+              <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown absolute top-full left-0 pt-2 w-56">
+              <div class="bg-nav-dark border border-white/10 rounded-xl p-2 shadow-2xl">
+                <a href="#about" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
+                  <span class="text-white font-medium">About Us</span>
+                </a>
+                <a href="#team" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
+                  <span class="text-white font-medium">Team</span>
+                </a>
+                <a href="#contact" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
+                  <span class="text-white font-medium">Contact / Careers</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="hidden lg:block">
+          <a href="#contact" class="btn-primary inline-flex items-center gap-2 px-6 py-3 bg-fika text-deep-cove font-semibold rounded-lg hover:bg-bright-green transition-colors">
+            Contact Us
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="lg:hidden p-2 text-slate-300 hover:text-white" id="mobile-menu-btn" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu fixed inset-y-0 right-0 w-full max-w-sm bg-nav-darker z-50 lg:hidden" id="mobile-menu">
+    <div class="flex items-center justify-between p-6 border-b border-white/10">
+      <span class="font-display text-xl font-bold text-white">Menu</span>
+      <button class="p-2 text-slate-300 hover:text-white" id="mobile-menu-close" aria-label="Close menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="p-6 space-y-6 overflow-y-auto h-full pb-24">
+      <div>
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Platform</div>
+        <div class="space-y-2">
+          <a href="#cyber-insurance" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Cyber Insurance</a>
+          <a href="#brokers" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Brokers</a>
+          <a href="#underwriters" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Underwriters</a>
+          <a href="#policyholder" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Policyholder</a>
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Risk</div>
+        <div class="space-y-2">
+          <a href="#cyber-risk" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Cyber Risk</a>
+          <a href="#ai-risk" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">AI Risk</a>
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Company</div>
+        <div class="space-y-2">
+          <a href="#about" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">About Us</a>
+          <a href="#team" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Team</a>
+          <a href="#contact" class="block px-4 py-3 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">Contact / Careers</a>
+        </div>
+      </div>
+      <div class="pt-4">
+        <a href="#contact" class="btn-primary flex items-center justify-center gap-2 w-full px-6 py-4 bg-fika text-deep-cove font-semibold rounded-lg hover:bg-bright-green transition-colors">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center pt-20 overflow-hidden noise-overlay">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 grid-pattern"></div>
+    <div class="absolute top-1/4 -right-1/4 w-[800px] h-[800px] rounded-full bg-fika/5 blur-[100px]"></div>
+    <div class="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-sleepish/10 blur-[100px]"></div>
+
+    <!-- Data Flow Visualization -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+        <!-- Connection lines -->
+        <path class="data-line" d="M200 200 Q400 300 600 250" stroke="url(#lineGradient)" stroke-width="1" fill="none" opacity="0.4"/>
+        <path class="data-line" d="M1200 150 Q1000 300 800 280" stroke="url(#lineGradient)" stroke-width="1" fill="none" opacity="0.4" style="animation-delay: -1s"/>
+        <path class="data-line" d="M100 600 Q300 500 500 550" stroke="url(#lineGradient)" stroke-width="1" fill="none" opacity="0.4" style="animation-delay: -2s"/>
+        <path class="data-line" d="M1300 700 Q1100 600 900 650" stroke="url(#lineGradient)" stroke-width="1" fill="none" opacity="0.4" style="animation-delay: -0.5s"/>
+        
+        <defs>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#69D3CC" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#69D3CC" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#83FCC3" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Floating data nodes -->
+      <div class="data-node absolute top-[20%] left-[10%] w-3 h-3 rounded-full bg-fika/60"></div>
+      <div class="data-node absolute top-[30%] right-[15%] w-2 h-2 rounded-full bg-bright-green/60"></div>
+      <div class="data-node absolute bottom-[40%] left-[20%] w-2 h-2 rounded-full bg-sleepish/60"></div>
+      <div class="data-node absolute top-[50%] right-[25%] w-4 h-4 rounded-full bg-fika/40"></div>
+      <div class="data-node absolute bottom-[30%] right-[10%] w-2 h-2 rounded-full bg-bright-green/60"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Content -->
+        <div class="text-center lg:text-left">
+          <div class="animate-fade-up">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fika/10 text-fika text-sm font-medium mb-6 border border-fika/20">
+              <span class="w-2 h-2 rounded-full bg-fika animate-pulse"></span>
+              AI-Native Cyber Insurance
+            </span>
+          </div>
+          
+          <h1 class="animate-fade-up delay-100 font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6">
+            Cyber Insurance<br/>
+            <span class="gradient-text">the Way It Should Be</span>
+          </h1>
+          
+          <p class="animate-fade-up delay-200 text-lg sm:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            Evidence based, automation driven underwriting for the AI era. We transform cybersecurity data into actionable intelligence.
+          </p>
+          
+          <div class="animate-fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#contact" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 bg-fika text-deep-cove font-semibold rounded-xl hover:bg-bright-green transition-all text-lg">
+              Contact Us
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#platform" class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/20 text-white font-medium rounded-xl hover:bg-white/5 transition-all text-lg">
+              Explore Platform
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Visualization - Data Distillation Concept -->
+        <div class="animate-scale-in delay-400 relative">
+          <div class="relative aspect-square max-w-lg mx-auto">
+            <!-- Central platform visualization -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                <!-- Rotating ring -->
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-fika/30 animate-spin" style="animation-duration: 20s;"></div>
+                <div class="absolute inset-4 rounded-full border border-bright-green/20"></div>
+                
+                <!-- Core -->
+                <div class="absolute inset-8 rounded-full bg-gradient-to-br from-deep-cove to-nav-darker border border-fika/30 flex items-center justify-center shadow-2xl shadow-fika/20">
+                  <svg class="w-16 h-16 sm:w-20 sm:h-20 text-fika" viewBox="0 0 80 80" fill="none">
+                    <path d="M40 8L72 24V56L40 72L8 56V24L40 8Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M40 24L56 32V48L40 56L24 48V32L40 24Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Orbiting data elements -->
+            <div class="absolute top-4 left-1/4 px-3 py-2 rounded-lg bg-nav-dark/80 border border-fika/20 text-xs text-fika backdrop-blur-sm">
+              Threat Intel
+            </div>
+            <div class="absolute top-1/4 right-4 px-3 py-2 rounded-lg bg-nav-dark/80 border border-bright-green/20 text-xs text-bright-green backdrop-blur-sm">
+              Risk Scores
+            </div>
+            <div class="absolute bottom-1/4 left-4 px-3 py-2 rounded-lg bg-nav-dark/80 border border-sleepish/30 text-xs text-blue-400 backdrop-blur-sm">
+              Vulnerabilities
+            </div>
+            <div class="absolute bottom-8 right-1/4 px-3 py-2 rounded-lg bg-nav-dark/80 border border-pralines/30 text-xs text-pralines backdrop-blur-sm">
+              Compliance
+            </div>
+
+            <!-- Connection dots -->
+            <div class="absolute top-[15%] left-[30%] w-2 h-2 rounded-full bg-fika"></div>
+            <div class="absolute top-[25%] right-[20%] w-2 h-2 rounded-full bg-bright-green"></div>
+            <div class="absolute bottom-[30%] left-[15%] w-2 h-2 rounded-full bg-blue-400"></div>
+            <div class="absolute bottom-[15%] right-[30%] w-2 h-2 rounded-full bg-pralines"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="relative bg-nav-dark border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="reveal text-center">
+          <div class="font-display text-3xl sm:text-4xl font-bold text-white mb-1">$5M</div>
+          <div class="text-sm text-slate-400">Coverage Available</div>
+        </div>
+        <div class="reveal text-center" style="transition-delay: 0.1s;">
+          <div class="font-display text-3xl sm:text-4xl font-bold text-white mb-1">24/7</div>
+          <div class="text-sm text-slate-400">Incident Response</div>
+        </div>
+        <div class="reveal text-center" style="transition-delay: 0.2s;">
+          <div class="font-display text-3xl sm:text-4xl font-bold text-white mb-1">20+</div>
+          <div class="text-sm text-slate-400">Years Experience</div>
+        </div>
+        <div class="reveal text-center" style="transition-delay: 0.3s;">
+          <div class="font-display text-3xl sm:text-4xl font-bold text-white mb-1">US</div>
+          <div class="text-sm text-slate-400">Based Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Differentiators -->
+  <section class="relative py-24 lg:py-32 overflow-hidden" id="platform">
+    <div class="absolute inset-0 grid-pattern opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          What Makes Navasana Different
+        </h2>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+          We've reimagined cyber insurance from the ground up, combining deep expertise with cutting-edge technology.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Differentiator 1 -->
+        <div class="reveal expandable-card card-hover group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 lg:p-8 cursor-pointer" onclick="toggleExpand(this)">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-fika/20 to-fika/5 flex items-center justify-center">
+              <svg class="w-7 h-7 text-fika" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                <circle cx="7" cy="7" r="1" fill="currentColor"/>
+                <circle cx="17" cy="17" r="1" fill="currentColor"/>
+                <path stroke-linecap="round" stroke-width="1.5" d="M9 7h6M9 17h6M7 9v6M17 9v6"/>
+              </svg>
+            </div>
+            <svg class="expand-icon w-6 h-6 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-white mb-3">End to End Cyber Risk and Insurance Platform</h3>
+          <p class="text-slate-400 leading-relaxed">
+            The Navasana platform streamlines the entire policy lifecycle, incentivizes and empowers policyholders to actively reduce their risk, and elevates brokers as trusted advisors.
+          </p>
+          <div class="expandable-content">
+            <div class="pt-4 border-t border-white/10 mt-4 space-y-3">
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-fika flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Platform-driven assessment
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-fika flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Automated analysis of cyber risk data
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-fika flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Inside-out and outside-in integrations
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-fika flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                AI analysis for risk prediction
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-fika flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Continuous risk monitoring
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Differentiator 2 -->
+        <div class="reveal expandable-card card-hover group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 lg:p-8 cursor-pointer" onclick="toggleExpand(this)" style="transition-delay: 0.1s;">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-bright-green/20 to-bright-green/5 flex items-center justify-center">
+              <svg class="w-7 h-7 text-bright-green" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <svg class="expand-icon w-6 h-6 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-white mb-3">Proprietary Tools and Rapid Response</h3>
+          <p class="text-slate-400 leading-relaxed">
+            Advanced security tools and 24/7 incident response capabilities protect businesses before, during, and after cyber events.
+          </p>
+          <div class="expandable-content">
+            <div class="pt-4 border-t border-white/10 mt-4 space-y-3">
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-bright-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                In-house ransomware restoration
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-bright-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                24/7 claims hotline with expert triage
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-bright-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                US-only on-site and remote support
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-bright-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Verified expert contractors network
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-bright-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Real-time incident tracking
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Differentiator 3 -->
+        <div class="reveal expandable-card card-hover group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 lg:p-8 cursor-pointer" onclick="toggleExpand(this)" style="transition-delay: 0.2s;">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-sleepish/30 to-sleepish/10 flex items-center justify-center">
+              <svg class="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3"/>
+              </svg>
+            </div>
+            <svg class="expand-icon w-6 h-6 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-white mb-3">Insurance DNA and Tech Execution</h3>
+          <p class="text-slate-400 leading-relaxed">
+            Founded by a team with deep expertise in cyber insurance and cybersecurity, we understand both the risk landscape and the insurance market.
+          </p>
+          <div class="expandable-content">
+            <div class="pt-4 border-t border-white/10 mt-4 space-y-3">
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                20+ years combined experience
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Cybersecurity expertise from industry leaders
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Former executives from FireEye, Aon, AXA XL
+              </div>
+              <div class="flex items-center gap-3 text-sm text-slate-300">
+                <svg class="w-4 h-4 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Built to address first-wave InsurTech shortcomings
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Five Pillars -->
+  <section class="relative py-24 lg:py-32 bg-nav-darker overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-sleepish/5 blur-[150px]"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          The Complete Cyber Insurance Lifecycle
+        </h2>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+          A continuous cycle of protection, assessment, improvement, and support.
+        </p>
+      </div>
+
+      <!-- Desktop: Horizontal flow -->
+      <div class="hidden lg:block">
+        <div class="relative">
+          <!-- Connection line -->
+          <div class="absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-fika/30 to-transparent"></div>
+          
+          <div class="grid grid-cols-5 gap-4">
+            <!-- ENSURE -->
+            <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center relative">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-fika/20 to-fika/5 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-fika" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-white mb-2">ENSURE</h3>
+              <p class="text-sm text-slate-400">Best in class cyber insurance coverage with comprehensive protections</p>
+              <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-nav-dark border border-fika/30 flex items-center justify-center z-10">
+                <svg class="w-2 h-2 text-fika" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- ASSESS -->
+            <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center relative" style="transition-delay: 0.1s;">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-bright-green/20 to-bright-green/5 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-bright-green" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-white mb-2">ASSESS</h3>
+              <p class="text-sm text-slate-400">Dynamic scanning and API integrations to continuously evaluate risk</p>
+              <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-nav-dark border border-bright-green/30 flex items-center justify-center z-10">
+                <svg class="w-2 h-2 text-bright-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- IMPROVE -->
+            <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center relative" style="transition-delay: 0.2s;">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-sleepish/30 to-sleepish/10 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-white mb-2">IMPROVE</h3>
+              <p class="text-sm text-slate-400">Incentivize and guide policyholders to actively strengthen security</p>
+              <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-nav-dark border border-blue-400/30 flex items-center justify-center z-10">
+                <svg class="w-2 h-2 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- REMEDIATE -->
+            <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center relative" style="transition-delay: 0.3s;">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pralines/30 to-pralines/10 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-pralines" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-white mb-2">REMEDIATE</h3>
+              <p class="text-sm text-slate-400">Expert post-breach services including forensics and restoration</p>
+              <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-nav-dark border border-pralines/30 flex items-center justify-center z-10">
+                <svg class="w-2 h-2 text-pralines" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- RENEW -->
+            <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center" style="transition-delay: 0.4s;">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-fika/20 to-bright-green/10 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-fika" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-white mb-2">RENEW</h3>
+              <p class="text-sm text-slate-400">Seamless renewals with transparent pricing based on improvements</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: Vertical stack -->
+      <div class="lg:hidden space-y-4">
+        <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-5 flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-fika/20 to-fika/5 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-fika" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-semibold text-white mb-1">ENSURE</h3>
+            <p class="text-sm text-slate-400">Best in class cyber insurance coverage with comprehensive protections</p>
+          </div>
+        </div>
+        
+        <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-5 flex items-start gap-4" style="transition-delay: 0.1s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-bright-green/20 to-bright-green/5 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-bright-green" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-semibold text-white mb-1">ASSESS</h3>
+            <p class="text-sm text-slate-400">Dynamic scanning and API integrations to continuously evaluate risk</p>
+          </div>
+        </div>
+        
+        <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-5 flex items-start gap-4" style="transition-delay: 0.2s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sleepish/30 to-sleepish/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-semibold text-white mb-1">IMPROVE</h3>
+            <p class="text-sm text-slate-400">Incentivize and guide policyholders to actively strengthen security</p>
+          </div>
+        </div>
+        
+        <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-5 flex items-start gap-4" style="transition-delay: 0.3s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pralines/30 to-pralines/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-pralines" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-semibold text-white mb-1">REMEDIATE</h3>
+            <p class="text-sm text-slate-400">Expert post-breach services including forensics and restoration</p>
+          </div>
+        </div>
+        
+        <div class="reveal pillar-card bg-nav-dark/50 border border-white/5 rounded-2xl p-5 flex items-start gap-4" style="transition-delay: 0.4s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-fika/20 to-bright-green/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-fika" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-semibold text-white mb-1">RENEW</h3>
+            <p class="text-sm text-slate-400">Seamless renewals with transparent pricing based on improvements</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations Section -->
+  <section class="relative py-24 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          Seamlessly Integrates With Your Tech Stack
+        </h2>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+          One-click read-only integrations for comprehensive risk assessment.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Identity Platforms -->
+        <div class="reveal integration-card group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 hover:border-fika/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-fika/20 to-fika/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-fika" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-2">Identity Platforms</h3>
+          <p class="text-sm text-slate-400 mb-4">Manage and secure user identities across your organization.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Google Workspace</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Okta</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Azure AD</span>
+          </div>
+        </div>
+
+        <!-- Developer Platforms -->
+        <div class="reveal integration-card group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 hover:border-bright-green/30 transition-all duration-300" style="transition-delay: 0.1s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-bright-green/20 to-bright-green/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-bright-green" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-2">Developer Platforms</h3>
+          <p class="text-sm text-slate-400 mb-4">Secure your code repositories and CI/CD pipelines.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">GitHub</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">GitLab</span>
+          </div>
+        </div>
+
+        <!-- Endpoint Security -->
+        <div class="reveal integration-card group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 hover:border-sleepish/30 transition-all duration-300" style="transition-delay: 0.2s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sleepish/30 to-sleepish/10 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-2">Endpoint Security</h3>
+          <p class="text-sm text-slate-400 mb-4">Protect devices and detect threats in real-time.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">CrowdStrike</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Microsoft Defender</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Cortex XDR</span>
+          </div>
+        </div>
+
+        <!-- Cloud Infrastructure -->
+        <div class="reveal integration-card group bg-nav-dark/50 border border-white/5 rounded-2xl p-6 hover:border-pralines/30 transition-all duration-300" style="transition-delay: 0.3s;">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pralines/30 to-pralines/10 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-pralines" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-2">Cloud Infrastructure</h3>
+          <p class="text-sm text-slate-400 mb-4">Monitor and secure your cloud environments.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">AWS</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Azure</span>
+            <span class="px-2 py-1 text-xs bg-white/5 text-slate-400 rounded">Google Cloud</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cyber Insurance Page Section -->
+  <section id="cyber-insurance" class="relative py-24 lg:py-32 bg-nav-darker overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-fika/5 blur-[120px]"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div class="reveal">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fika/10 text-fika text-sm font-medium mb-6">
+            Platform
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Comprehensive Cyber Insurance Coverage
+          </h2>
+          <p class="text-lg text-slate-400 mb-8">
+            Protection designed for the modern threat landscape. Our policies cover both first-party losses and third-party liabilities with industry-leading response capabilities.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center gap-2 text-slate-300">
+              <svg class="w-5 h-5 text-fika" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Up to $5M Coverage
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+              <svg class="w-5 h-5 text-fika" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              $2,500 Min Deductible
+            </div>
+          </div>
+          <a href="#contact" class="btn-primary inline-flex items-center gap-2 px-6 py-3 bg-fika text-deep-cove font-semibold rounded-xl hover:bg-bright-green transition-all">
+            Get a Quote
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="reveal" style="transition-delay: 0.2s;">
+          <div class="bg-nav-dark/50 border border-white/10 rounded-2xl p-6 lg:p-8">
+            <div class="grid gap-8">
+              <!-- First Party -->
+              <div>
+                <h3 class="font-display text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-fika"></span>
+                  First Party Coverages
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-fika/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Breach Response Costs
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-fika/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Business Interruption
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-fika/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Cyber Extortion
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-fika/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Cyber Crime
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-fika/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Digital Data Recovery
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-fika/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Reputational Harm
+                  </div>
+                </div>
+              </div>
+
+              <!-- Third Party -->
+              <div>
+                <h3 class="font-display text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-bright-green"></span>
+                  Third Party Coverages
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-bright-green/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Network Security Liability
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-bright-green/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Regulatory Defense
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-bright-green/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Media Liability
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-bright-green/60" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    PCI Fines and Costs
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-white/10">
+              <a href="#" class="inline-flex items-center gap-2 text-fika hover:text-bright-green transition-colors text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                Download Coverage Summary PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="relative py-24 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="reveal order-2 lg:order-1">
+          <div class="relative">
+            <!-- Decorative element -->
+            <div class="absolute -inset-4 rounded-3xl bg-gradient-to-br from-fika/10 via-transparent to-sleepish/10 blur-2xl"></div>
+            <div class="relative bg-nav-dark/50 border border-white/10 rounded-2xl p-8 lg:p-10">
+              <div class="space-y-4">
+                <p class="text-lg text-slate-300 leading-relaxed">
+                  Navasana is an <span class="text-white font-medium">InsurTech policyholder-centric cyber insurance MGA</span> providing services to US small and middle-market organizations with revenues up to $500 million.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                  We combine disciplined underwriting and proprietary AI-enabled technology and services to help policyholders actively reduce cyber risk over time.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                  Founded by a team with deep expertise in cyber insurance and cybersecurity, Navasana was built to address the shortcomings of the first-wave InsurTech MGAs: static risk assessment, limited post-bind engagement, and weak feedback loops between underwriting and claims.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                  Our platform integrates across the entire insurance lifecycle, enabling precise risk selection, continuous risk posture improvement, and streamlining the cyber claim response processes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal order-1 lg:order-2" style="transition-delay: 0.1s;">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sleepish/20 text-blue-400 text-sm font-medium mb-6">
+            Company
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            About Navasana
+          </h2>
+          <p class="text-lg text-slate-400 mb-8">
+            By aligning risk transfer with risk improvement, Navasana is building a scalable, durable cyber insurance business designed to deliver sustainable performance for policyholders, distribution partners, and reinsurers.
+          </p>
+          
+          <div class="grid grid-cols-2 gap-6">
+            <div class="p-4 bg-nav-dark/30 border border-white/5 rounded-xl">
+              <div class="font-display text-2xl font-bold text-fika mb-1">20+</div>
+              <div class="text-sm text-slate-400">Years Combined Experience</div>
+            </div>
+            <div class="p-4 bg-nav-dark/30 border border-white/5 rounded-xl">
+              <div class="font-display text-2xl font-bold text-bright-green mb-1">$500M</div>
+              <div class="text-sm text-slate-400">Target Market Revenue</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section Preview -->
+  <section id="team" class="relative py-24 lg:py-32 bg-nav-darker overflow-hidden">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pralines/20 text-pralines text-sm font-medium mb-6">
+          Company
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          Leadership Team
+        </h2>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+          Deep expertise in cyber insurance and cybersecurity from industry leaders.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <!-- Team Member 1 -->
+        <div class="reveal card-hover bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center">
+          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-fika/20 to-fika/5 mx-auto mb-4 flex items-center justify-center">
+            <span class="font-display text-2xl font-bold text-fika">MS</span>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-1">Manu Singh</h3>
+          <p class="text-sm text-fika mb-3">CEO & Co-Founder</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-fika transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="reveal card-hover bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center" style="transition-delay: 0.1s;">
+          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-bright-green/20 to-bright-green/5 mx-auto mb-4 flex items-center justify-center">
+            <span class="font-display text-2xl font-bold text-bright-green">SA</span>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-1">Shreemathi Atreya</h3>
+          <p class="text-sm text-bright-green mb-3">CTO & Co-Founder</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-bright-green transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="reveal card-hover bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center" style="transition-delay: 0.2s;">
+          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-sleepish/30 to-sleepish/10 mx-auto mb-4 flex items-center justify-center">
+            <span class="font-display text-2xl font-bold text-blue-400">MA</span>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-1">Matthew Anderson</h3>
+          <p class="text-sm text-blue-400 mb-3">CIO & Co-Founder</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-blue-400 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="reveal card-hover bg-nav-dark/50 border border-white/5 rounded-2xl p-6 text-center" style="transition-delay: 0.3s;">
+          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pralines/30 to-pralines/10 mx-auto mb-4 flex items-center justify-center">
+            <span class="font-display text-2xl font-bold text-pralines">BA</span>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-white mb-1">Brett Anderson</h3>
+          <p class="text-sm text-pralines mb-3">CSO</p>
+          <p class="text-xs text-slate-500">Founded Tracepoint</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-pralines transition-colors mt-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Advisory Board -->
+      <div class="reveal">
+        <h3 class="font-display text-xl font-semibold text-white mb-6 text-center">Advisory Board</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-nav-dark/30 border border-white/5 rounded-xl p-4">
+            <h4 class="font-medium text-white mb-1">Judy Selby, Esq.</h4>
+            <p class="text-xs text-slate-400">30+ years insurance law. 2023 Zywave Cyber Risk Attorney of the Year</p>
+          </div>
+          <div class="bg-nav-dark/30 border border-white/5 rounded-xl p-4">
+            <h4 class="font-medium text-white mb-1">Robert Dunn</h4>
+            <p class="text-xs text-slate-400">30+ years operational finance. Former CFO of Wavefront</p>
+          </div>
+          <div class="bg-nav-dark/30 border border-white/5 rounded-xl p-4">
+            <h4 class="font-medium text-white mb-1">Manish Gupta</h4>
+            <p class="text-xs text-slate-400">20+ years cybersecurity. Former CPO/CSO of FireEye</p>
+          </div>
+          <div class="bg-nav-dark/30 border border-white/5 rounded-xl p-4">
+            <h4 class="font-medium text-white mb-1">Duane Folkard</h4>
+            <p class="text-xs text-slate-400">20+ year Cyber E&O veteran. Former UK Executive Director at Aon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="relative py-24 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-fika/5 blur-[150px]"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Contact Info -->
+        <div class="reveal">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fika/10 text-fika text-sm font-medium mb-6">
+            Get in Touch
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Let's Start a Conversation
+          </h2>
+          <p class="text-lg text-slate-400 mb-8">
+            Whether you're a broker looking for the right coverage for your clients, a business owner seeking cyber protection, or interested in joining our team, we'd love to hear from you.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-fika/10 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-fika" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-medium text-white mb-1">Email Us</h3>
+                <p class="text-slate-400">info@navasana.ai</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-bright-green/10 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-bright-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-medium text-white mb-1">Location</h3>
+                <p class="text-slate-400">United States</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="reveal" style="transition-delay: 0.2s;">
+          <div class="bg-nav-dark/50 border border-white/10 rounded-2xl p-6 lg:p-8">
+            <form class="space-y-6">
+              <div class="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-slate-300 mb-2" for="firstName">First Name</label>
+                  <input type="text" id="firstName" class="w-full px-4 py-3 bg-nav-darker border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-fika/50 transition-colors" placeholder="John">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-300 mb-2" for="lastName">Last Name</label>
+                  <input type="text" id="lastName" class="w-full px-4 py-3 bg-nav-darker border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-fika/50 transition-colors" placeholder="Doe">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2" for="email">Email</label>
+                <input type="email" id="email" class="w-full px-4 py-3 bg-nav-darker border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-fika/50 transition-colors" placeholder="john@company.com">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2" for="inquiry">Inquiry Type</label>
+                <select id="inquiry" class="w-full px-4 py-3 bg-nav-darker border border-white/10 rounded-xl text-white focus:outline-none focus:border-fika/50 transition-colors">
+                  <option value="">Select an option</option>
+                  <option value="broker">Broker Partnership</option>
+                  <option value="coverage">Coverage Inquiry</option>
+                  <option value="claims">Claims Support</option>
+                  <option value="careers">Careers</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2" for="message">Message</label>
+                <textarea id="message" rows="4" class="w-full px-4 py-3 bg-nav-darker border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-fika/50 transition-colors resize-none" placeholder="How can we help you?"></textarea>
+              </div>
+              <button type="submit" class="btn-primary w-full px-6 py-4 bg-fika text-deep-cove font-semibold rounded-xl hover:bg-bright-green transition-all">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative bg-nav-darker border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <!-- Logo & Description -->
+        <div class="col-span-2 lg:col-span-2">
+          <a href="#" class="flex items-center gap-3 mb-4">
+            <svg class="w-8 h-8 text-fika" viewBox="0 0 40 40" fill="none">
+              <path d="M20 4L36 12V28L20 36L4 28V12L20 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M20 12L28 16V24L20 28L12 24V16L20 12Z" fill="currentColor"/>
+            </svg>
+            <span class="font-display text-xl font-bold text-white">Navasana</span>
+          </a>
+          <p class="text-sm text-slate-400 mb-4 max-w-xs">
+            Cyber Insurance the Way It Should Be. AI-native protection for the modern enterprise.
+          </p>
+          <p class="text-xs text-slate-500">© 2026 Navasana. All rights reserved.</p>
+        </div>
+
+        <!-- Platform -->
+        <div>
+          <h4 class="font-medium text-white mb-4">Platform</h4>
+          <ul class="space-y-2">
+            <li><a href="#cyber-insurance" class="text-sm text-slate-400 hover:text-fika transition-colors">Cyber Insurance</a></li>
+            <li><a href="#brokers" class="text-sm text-slate-400 hover:text-fika transition-colors">Brokers</a></li>
+            <li><a href="#underwriters" class="text-sm text-slate-400 hover:text-fika transition-colors">Underwriters</a></li>
+            <li><a href="#policyholder" class="text-sm text-slate-400 hover:text-fika transition-colors">Policyholder</a></li>
+          </ul>
+        </div>
+
+        <!-- Risk -->
+        <div>
+          <h4 class="font-medium text-white mb-4">Risk</h4>
+          <ul class="space-y-2">
+            <li><a href="#cyber-risk" class="text-sm text-slate-400 hover:text-fika transition-colors">Cyber Risk</a></li>
+            <li><a href="#ai-risk" class="text-sm text-slate-400 hover:text-fika transition-colors">AI Risk</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h4 class="font-medium text-white mb-4">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="#about" class="text-sm text-slate-400 hover:text-fika transition-colors">About Us</a></li>
+            <li><a href="#team" class="text-sm text-slate-400 hover:text-fika transition-colors">Team</a></li>
+            <li><a href="#contact" class="text-sm text-slate-400 hover:text-fika transition-colors">Contact</a></li>
+            <li><a href="#contact" class="text-sm text-slate-400 hover:text-fika transition-colors">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex gap-6">
+          <a href="#" class="text-xs text-slate-500 hover:text-slate-400 transition-colors">Privacy Policy</a>
+          <a href="#" class="text-xs text-slate-500 hover:text-slate-400 transition-colors">Terms of Service</a>
+        </div>
+        <div class="flex gap-4">
+          <a href="#" class="text-slate-400 hover:text-fika transition-colors" aria-label="LinkedIn">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+          <a href="#" class="text-slate-400 hover:text-fika transition-colors" aria-label="Twitter">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+
+      mobileMenuClose.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+
+      // Close on link click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    // Expandable cards toggle
+    function toggleExpand(card) {
+      card.classList.toggle('expanded');
+    }
+
+    // Scroll reveal with IntersectionObserver
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Integration card mouse tracking for radial gradient
+    document.querySelectorAll('.integration-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Header background on scroll
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 50) {
+        header.style.background = 'rgba(8, 15, 28, 0.95)';
+      } else {
+        header.style.background = 'rgba(8, 15, 28, 0.9)';
+      }
+      
+      lastScroll = currentScroll;
+    });
+
+    // Prefers reduced motion check
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    if (prefersReducedMotion.matches) {
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('visible');
+      });
+    }
+  </script>
+</body>
+</html>
